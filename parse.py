@@ -1,3 +1,4 @@
+# coding=utf-8
 import xml.etree.ElementTree as ET
 import tmx as T
 
@@ -48,4 +49,4 @@ def parse_layer(xml):
     return T.Layer(name, tiles)
 
 def get_item(list_of_tuples, key):
-    return [item for item in list_of_tuples if item[0] == key]
+    return [item for item in list_of_tuples if item[0] == key][0][1]

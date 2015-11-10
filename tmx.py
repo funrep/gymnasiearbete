@@ -1,3 +1,4 @@
+# coding=utf-8
 # Python klass som representerar en banfil
 # vi ignorerar några fält som finns i TMX-specifikationen
 # för de används inte i spelet
