@@ -14,7 +14,7 @@ class Map:
         self.layers = layers
 
 class Tileset:
-    def __init___(self, firstgid, name, image):
+    def __init__(self, firstgid, name, image):
         self.firstgid = firstgid
         self.name = name
         self.image = image
