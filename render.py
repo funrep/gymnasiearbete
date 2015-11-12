@@ -28,6 +28,7 @@ def calc_offset(gid, img):
     rows = int(img.height) / 16
     tile_count = columns * rows
     tileX, tileY = 0, 0
+    gid -= 1
     i = 0
     while tileX < columns:
         # print "Gid %d Iter %d x: %d y: %d" % (gid, i, tileX, tileY)
@@ -45,6 +46,15 @@ def calc_offset(gid, img):
 #     offset = calc_offset(tile, image)
 #     print str(offset)
 #     surfaces.append(tileset.subsurface(offset))
+
+j = 1 
+for tile in tiles:
+    print str(tile),
+    if j == 10:
+        print ""
+        j = 1
+    else:
+        j += 1
 
 while True:
     for event in pygame.event.get():
