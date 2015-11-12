@@ -51,13 +51,14 @@ while True:
         if event.type == pygame.QUIT: sys.exit()
 
     screen.fill(black)
+
+    worldH, worldW = int(gamemap.height), int(gamemap.width)
     posX, posY = 0, 0
-    tileW, tileH = gamemap.tilewidth, gamemap.tileheight
     i = 0
     for tile in tiles:
         offset = calc_offset(tile, image)
         screen.blit(tileset, (posX, posY), offset)
-        if i == tileW:
+        if i == (worldW - 1):
             posX = 0
             posY += 16
             i = 0
