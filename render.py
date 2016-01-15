@@ -49,7 +49,7 @@ def calc_offset(gid, img):
 
 j = 1 
 for tile in tiles:
-    print str(tile),
+    print str(tile)
     if j == 10:
         print ""
         j = 1
