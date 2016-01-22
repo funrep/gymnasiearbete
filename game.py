@@ -1,4 +1,6 @@
 import sys, pygame
+import parse
+from utils import calc_offset
 
 pygame.init()
 
