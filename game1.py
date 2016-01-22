@@ -1,12 +1,12 @@
 # coding=utf-8
 import sys, pygame
-import parse
+import parse, rect
 from utils import calc_offset
 
 pygame.init()
 
 try:
-    gamemap = parse.parse_map("test.tmx")
+    gamemap = parse.parse_map("collision.tmx")
     image = gamemap.tilesets[0].image
 except:
     print "error: skrev du in rätt filnamn?"
@@ -31,11 +31,34 @@ tiles = []
 for tile in gamemap.layers[0].tiles:
     tiles.append(int(tile))
 
-rectX = 50
-rectY = height - 50
+colliders = []
+for tile in gamemap.layers[1].tiles:
+    colliders.append(int(tile))
+
+playerX = 50
+playerY = height - 50
 velX, velY = 0, 0
 speed = 0.5
 jump = False
+
+def collides(x, y):
+    playerRect = rect.Rect(x, y, 50, 50)
+    worldH, worldW = int(gamemap.height), int(gamemap.width)
+    posX, posY = 0, 0
+    i = 0
+    for tile in colliders:
+        if tile != 0:
+            tileRect = rect.Rect(posX, posY, 16, 16)
+            if playerRect.intersect(tileRect):
+                return True
+        if i == (worldW - 1):
+            posX = 0
+            posY += 16
+            i = 0
+        else:
+            posX += 16
+            i += 1
+    return False
 
 def render_map():
     worldH, worldW = int(gamemap.height), int(gamemap.width)
@@ -73,17 +96,17 @@ while True:
         jump = True
     if jump and velY < 0.8:
        velY += 0.05
-    elif rectY > (height - 50):
+    elif collides(playerX, playerY): # rectY > (height - 50):
         velY = 0
         rectY = height - 50
         jump = False
 
-    rectX += velX * dt
-    rectY += velY * dt
+    playerX += velX * dt
+    playerY += velY * dt
 
     screen.fill(black)
     # renderar banan
     render_map()
     # renderar spelaren
-    pygame.draw.rect(screen, white, (rectX, rectY, 50, 50), 0)
+    pygame.draw.rect(screen, white, (playerX, playerY, 50, 50), 0)
     pygame.display.flip()
